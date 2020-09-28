@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WXPF", "WXPF\WXPF.csproj", "{1963D5C9-EAC2-4D7A-A917-2B3590CD0DF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WXPF_SampleApp", "WXPF_SampleApp\WXPF_SampleApp.csproj", "{9AAF829A-E290-47C2-9192-905CCC6F9E0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1963D5C9-EAC2-4D7A-A917-2B3590CD0DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1963D5C9-EAC2-4D7A-A917-2B3590CD0DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1963D5C9-EAC2-4D7A-A917-2B3590CD0DF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AAF829A-E290-47C2-9192-905CCC6F9E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AAF829A-E290-47C2-9192-905CCC6F9E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AAF829A-E290-47C2-9192-905CCC6F9E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AAF829A-E290-47C2-9192-905CCC6F9E0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
