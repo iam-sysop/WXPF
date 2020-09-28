@@ -1,0 +1,104 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+    mc:Ignorable="d"
+    xmlns:controls="clr-namespace:WinXPresentationFoundation.Controls"
+    >
+
+
+    <!-- NUMERIC UP DOWN -->
+
+    <Style TargetType="{x:Type controls:NumericUpDown}">
+
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey={x:Static SystemColors.ControlDarkBrushKey}}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type controls:NumericUpDown}">
+
+                    <Border Background="Transparent" x:Name="PART_Border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Focusable="False"
+                            SnapsToDevicePixels="True">
+
+                        <Grid x:Name="PART_Grid"
+                              Width="{TemplateBinding Width}"
+                              Height="{TemplateBinding Height}"  
+                              VerticalAlignment="Center"
+                              Focusable="False"
+                              SnapsToDevicePixels="True">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="PART_ValueBox" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Height="{TemplateBinding Height}" BorderThickness="0" Margin="0" SnapsToDevicePixels="True"/>
+
+                            <Grid Grid.Column="1" Name="PART_Buttons" SnapsToDevicePixels="True">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <RepeatButton x:Name="PART_IncreaseButton"
+                                              Grid.Row="0"
+                                              Width="20"
+                                              Margin="1, 1, 0, 0" 
+                                              Height="Auto" 
+                                              SnapsToDevicePixels="True">
+                                    <Path Margin="1"
+                                          Data="M 0 20 L 35 -20 L 70 20 Z"
+                                          Fill="{DynamicResource ResourceKey={x:Static SystemColors.ControlTextBrushKey}}"
+                                          Stretch="Uniform" SnapsToDevicePixels="True"/>
+                                </RepeatButton>
+
+                                <RepeatButton x:Name="PART_DecreaseButton"
+                                              Grid.Row="1"
+                                              Width="20"
+                                              Margin="1, 0, 0, 1" 
+                                              Height="Auto" 
+                                              SnapsToDevicePixels="True">
+                                    <Path Margin="1"
+                                          Data="M 0 0 L 35 40 L 70 0 Z"
+                                          Fill="{DynamicResource ResourceKey={x:Static SystemColors.ControlTextBrushKey}}"
+                                          Stretch="Uniform" 
+                                          SnapsToDevicePixels="True"/>
+                                </RepeatButton>
+
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="PART_Border" Property="Opacity" Value="0.56"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="PART_Border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="true">
+                            <Setter TargetName="PART_Border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" />
+                            <Setter TargetName="PART_ValueBox" Property="Background" Value="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" />
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>                
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- END NUMERIC UP DOWN -->
+
+
+</ResourceDictionary>

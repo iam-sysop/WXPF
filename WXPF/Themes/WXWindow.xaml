@@ -1,0 +1,300 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+                    mc:Ignorable="d"
+                    xmlns:wxpf="clr-namespace:WinXPresentationFoundation.Containers">
+    
+    <SolidColorBrush x:Key="NC_WindowBrush" Color="{DynamicResource ResourceKey={x:Static SystemColors.WindowColorKey}}"/>
+    <SolidColorBrush x:Key="NC_WindowFrameBrush" Color="{DynamicResource ResourceKey={x:Static SystemColors.WindowFrameColorKey}}"/>
+    <SolidColorBrush x:Key="NC_WindowTextBrush" Color="{DynamicResource ResourceKey={x:Static SystemColors.WindowTextColorKey}}"/>
+
+    <LinearGradientBrush x:Key="NC_ActiveCaptionBrush" StartPoint="0,0" EndPoint="1,0" Opacity="1">
+        <GradientStopCollection>
+            <GradientStop Color="{DynamicResource ResourceKey={x:Static SystemColors.ActiveCaptionColorKey}}" Offset="0"></GradientStop>
+            <GradientStop Color="{DynamicResource ResourceKey={x:Static SystemColors.GradientActiveCaptionColorKey}}" Offset="1"></GradientStop>
+        </GradientStopCollection>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="NC_InactiveCaptionBrush" StartPoint="0,0" EndPoint="1,0" Opacity="1">
+        <GradientStopCollection>
+            <GradientStop Color="{DynamicResource ResourceKey={x:Static SystemColors.InactiveCaptionColorKey}}" Offset="0"></GradientStop>
+            <GradientStop Color="{DynamicResource ResourceKey={x:Static SystemColors.GradientInactiveCaptionColorKey}}" Offset="1"></GradientStop>
+        </GradientStopCollection>
+    </LinearGradientBrush>
+<!-- 
+    <SolidColorBrush x:Key="NC_ActiveCaptionText" Color="{DynamicResource ResourceKey={x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
+    <SolidColorBrush x:Key="NC_InactiveCaptionText" Color="{DynamicResource ResourceKey={x:Static SystemColors.InactiveCaptionTextColorKey}}"/>
+-->
+    <SolidColorBrush x:Key="NC_CaptionHighlight" Color="{x:Static Colors.White}" Opacity=".4" />
+    <SolidColorBrush x:Key="NC_CaptionBtnClick" Color="{x:Static Colors.DarkGray}" Opacity=".5" />
+    <SolidColorBrush x:Key="NC_CloseBtnClick" Color="{x:Static Colors.Red}" Opacity="1" />
+
+
+    <Style x:Key="NC_BUTTON" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{DynamicResource ResourceKey={x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter 
+                            x:Name="contentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            Margin="{TemplateBinding Padding}"
+                            RecognizesAccessKey="True" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=wxpf:WXWindow},Path=IsActive}" Value="True"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self},Path=IsMouseOver}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource NC_CaptionHighlight}" />
+                        </MultiDataTrigger>
+                        
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=wxpf:WXWindow},Path=IsActive}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Foreground" Value="{DynamicResource ResourceKey={x:Static SystemColors.InactiveCaptionTextBrushKey}}" />
+                        </MultiDataTrigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource NC_CaptionBtnClick}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="contentPresenter" Property="Opacity" Value=".5" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True"/>
+                                <Condition Property="Name" Value="NC_BtnClose"  />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource NC_CloseBtnClick}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type wxpf:WXWindow}" TargetType="{x:Type wxpf:WXWindow}">
+        <Setter Property="Foreground" Value="{DynamicResource ResourceKey={x:Static SystemColors.WindowTextBrushKey}}" />
+        <Setter Property="Background" Value="{DynamicResource ResourceKey={x:Static SystemColors.WindowBrushKey}}"/>
+        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type wxpf:WXWindow}">
+                    <Border 
+                        x:Name="WindowBorder" 
+                        Margin="0" 
+                        Background="{DynamicResource ResourceKey={x:Static SystemColors.WindowBrushKey}}" 
+                        BorderThickness="1" 
+                        BorderBrush="{DynamicResource ResourceKey={x:Static SystemColors.ActiveBorderBrushKey}}">
+
+                        <Grid>
+                            <Border BorderThickness="0" Margin="0" Background="Transparent" BorderBrush="Transparent">
+                                <AdornerDecorator>
+                                    <Grid x:Name="LayoutRoot">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="{Binding Source={x:Static SystemParameters.WindowNonClientFrameThickness}, Path=Top}" x:Name="TitleRow"/>
+                                            <RowDefinition Height="*" x:Name="ContentRow"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <Rectangle 
+                                            x:Name="NC_CaptionBackground" 
+                                            Margin="0"
+                                            Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}" 
+                                            Width="Auto"
+                                            Stretch="Fill"
+                                            
+                                            Fill="{DynamicResource ResourceKey={x:Static SystemColors.ActiveCaptionBrushKey}}" 
+                                            VerticalAlignment="Top" 
+                                            Grid.Row="0"/>
+
+                                        <TextBlock 
+                                            x:Name="NC_WindowTitleTextBlock" 
+                                            Grid.Row="0" 
+                                            Text="{TemplateBinding Title}" 
+                                            HorizontalAlignment="Left" 
+                                            TextTrimming="CharacterEllipsis" 
+                                            VerticalAlignment="Center" 
+                                            Margin="8 -1 0 0" 
+                                            FontSize="16" 
+                                            Foreground="{DynamicResource ResourceKey={x:Static SystemColors.ActiveCaptionTextBrushKey}}"/>
+
+                                        <StackPanel 
+                                            Orientation="Horizontal" 
+                                            HorizontalAlignment="Right" 
+                                            VerticalAlignment="Top" 
+                                            WindowChrome.IsHitTestVisibleInChrome="True" 
+                                            Grid.Row="0">
+
+                                            <Button 
+                                                x:Name="NC_BtnMinimize"
+                                                Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}" 
+                                                ToolTip="Minimize" 
+                                                Foreground="{DynamicResource Foreground}"
+                                                Style="{StaticResource NC_BUTTON}"
+                                                >
+
+                                                <Button.Content>
+                                                    <Grid Width="30" Height="25" UseLayoutRounding="True" RenderTransform="1,0,0,1,0,1" >
+                                                        <Path 
+                                                            Data="M0,5 L8,5 Z" 
+                                                            Width="8" 
+                                                            Height="8" 
+                                                            RenderOptions.EdgeMode="Aliased"
+                                                            VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Center"
+                                                            Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" 
+                                                            StrokeThickness="1" />
+
+                                                    </Grid>
+                                                </Button.Content>
+                                            </Button>
+
+                                            <Grid>
+
+                                                <Button 
+                                                    Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}" 
+                                                    ToolTip="Restore" 
+                                                    Visibility="Collapsed" 
+                                                    Style="{StaticResource NC_BUTTON}"
+                                                    Foreground="{DynamicResource Foreground}"
+                                                    x:Name="NC_BtnRestore">
+
+                                                    <Button.Content>
+                                                        <Grid Width="30" Height="25" UseLayoutRounding="True"  RenderTransform="1,0,0,1,0,1">
+                                                            <Path 
+                                                                Data="M2,0 L8,0 L8,6 M0,3 L6,3 M0,2 L6,2 L6,8 L0,8 Z" 
+                                                                Width="8" 
+                                                                Height="8" 
+                                                                RenderOptions.EdgeMode="Aliased"
+                                                                VerticalAlignment="Center" 
+                                                                HorizontalAlignment="Center"
+                                                                Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" 
+                                                                StrokeThickness="1" />
+
+                                                        </Grid>
+                                                    </Button.Content>
+
+                                                </Button>
+
+                                                <Button 
+                                                    
+                                                    Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}" 
+                                                    ToolTip="Maximize" 
+                                                    Style="{StaticResource NC_BUTTON}"
+                                                    Foreground="{DynamicResource Foreground}"                                                    
+                                                    x:Name="NC_BtnMaximize">
+
+                                                    <Button.Content>
+                                                        <Grid Width="30" Height="25" UseLayoutRounding="True"  RenderTransform="1,0,0,1,0,1">
+                                                            <Path 
+                                                                Data="M0,0 L8,0 L8,8 L0,8 Z" 
+                                                                Width="8" 
+                                                                Height="8" 
+                                                                RenderOptions.EdgeMode="Aliased"
+                                                                VerticalAlignment="Center" 
+                                                                HorizontalAlignment="Center"
+                                                                Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" 
+                                                                StrokeThickness="1" />
+
+                                                        </Grid>
+                                                    </Button.Content>
+
+                                                </Button>
+                                            </Grid>
+
+                                            <Button 
+                                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}" 
+                                                ToolTip="Close"  
+                                                Style="{StaticResource NC_BUTTON}"
+                                                Foreground="{DynamicResource Foreground}"
+                                                x:Name="NC_BtnClose">
+
+                                                <Button.Content>
+                                                    <Grid Width="30" Height="25" UseLayoutRounding="True"  RenderTransform="1,0,0,1,0,1">
+                                                        <Path 
+                                                            Data="M0,0 L8,8 M8,0 L0,8 Z" 
+                                                            Width="8" 
+                                                            Height="8" 
+                                                            RenderOptions.EdgeMode="Aliased"
+                                                            VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Center"
+                                                            Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" 
+                                                            StrokeThickness="1" />
+
+                                                    </Grid>
+                                                </Button.Content>
+                                            </Button>
+
+                                        </StackPanel>
+                                        
+
+                                        
+
+                                        
+                                        <ContentPresenter Grid.Row="1" Margin="7"/>
+                                        
+                                    </Grid>
+                                </AdornerDecorator>
+                            </Border>
+
+                            <!-- <Border 
+                                BorderBrush="{DynamicResource ResourceKey={x:Static SystemColors.ActiveBorderBrushKey}}" 
+                                BorderThickness="1" 
+                                Visibility="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type wxpf:WXWindow}}, Converter={StaticResource bool2VisibilityConverter}}" /> -->
+
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="NC_BtnMaximize" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="NC_BtnRestore" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="LayoutRoot" Property="Margin" Value="7" />
+                        </Trigger>
+                        <Trigger Property="WindowState" Value="Normal">
+                            <Setter TargetName="NC_BtnMaximize" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NC_BtnRestore" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <!--
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
+                                <Condition Property="WindowState" Value="Normal" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ResizeGrip" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        -->
+                        <Trigger Property="IsActive" Value="False">
+                            <Setter TargetName="WindowBorder" Property="BorderBrush" Value="{DynamicResource ResourceKey={x:Static SystemColors.InactiveBorderBrushKey}}" />
+                            <Setter TargetName="NC_CaptionBackground" Property="Fill" Value="{DynamicResource ResourceKey={x:Static SystemColors.InactiveCaptionBrushKey}}" />
+                            <Setter TargetName="NC_WindowTitleTextBlock" Property="Foreground" Value="{DynamicResource ResourceKey={x:Static SystemColors.InactiveCaptionTextBrushKey}}"/>
+                            
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CornerRadius="0" GlassFrameThickness="1" UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+</ResourceDictionary>
